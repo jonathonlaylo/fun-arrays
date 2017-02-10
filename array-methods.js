@@ -22,7 +22,13 @@ var hundredThousandairs = dataset.bankBalances.filter((element, index, array) =>
     }
   assign the resulting array to `roundedDollar`
 */
-var roundedDollar = null;
+var roundedDollar = dataset.bankBalances.map((element, index, array) =>{
+  return {
+    amount: element.amount,
+    state: element.state,
+    rounded: Math.round(element.amount)
+  };
+});
 
 /*
   set a the `amount` value for each object in bankBalances
