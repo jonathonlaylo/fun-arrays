@@ -65,7 +65,21 @@ var sumOfBankBalances = dataset.bankBalances.reduce((previousValue, currentValue
     Delaware
   the result should be rounded to the nearest cent
  */
-var sumOfInterests = null;
+var sumOfInterests = dataset.bankBalances.filter((element, index, array)=>{
+  if(element.state === 'WI' || element.state === 'IL' || element.state === 'WY' || element.state === 'OH' || element.state === 'GA' || element.state === 'DE'){
+    return true;
+  }
+  return false;
+  })
+  .map((element, index, array)=>{
+    // console.log(parseFloat(element.amount)* 0.189);
+    return parseFloat(element.amount)* 0.189;
+  })
+  .reduce((previousValue, currentValue, index, array)=>{
+    // console.log(Math.round((previousValue + currentValue)*100)/100);
+    return Math.round((previousValue + currentValue)*100)/100;
+  });
+
 
 /*
   set sumOfHighInterests to the sum of the 18.9% interest
