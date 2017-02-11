@@ -69,7 +69,7 @@ var sumOfInterests = dataset.bankBalances.filter((element, index, array)=>{
   if(element.state === 'WI' || element.state === 'IL' || element.state === 'WY' || element.state === 'OH' || element.state === 'GA' || element.state === 'DE'){
     return true;
   }
-  return false;
+    return false;
   })
   .map((element, index, array)=>{
     // console.log(parseFloat(element.amount)* 0.189);
@@ -95,7 +95,27 @@ var sumOfInterests = dataset.bankBalances.filter((element, index, array)=>{
     Delaware
   the result should be rounded to the nearest cent
  */
-var sumOfHighInterests = null;
+var sumOfHighInterests = dataset.bankBalances.filter((element, index, array)=>{
+  if(element.state !== 'WI' && element.state !== 'IL' && element.state !== 'WY' && element.state !== 'OH' && element.state !== 'GA' && element.state !== 'DE'){
+    return true;
+  }
+    return false;
+  })
+  .map((element, index, array)=>{
+    // console.log(element.state, parseFloat(element.amount) * 0.189);
+    // return parseFloat(element.amount) * 0.189;
+    return{
+      state: element.state,
+      interest: parseFloat(element.amount)* 0.189
+    };
+  })
+  .filter((element, index, array)=>{
+    // console.log('filter', element.state, element.interest > 50000);
+    return element.interest > 50000;
+  })
+  .reduce((previousValue, currentValue, index, array)=>{
+    return Math.round((previousValue + currentValue.interest) * 100)/100;
+  },0);
 
 /*
   aggregate the sum of bankBalance amounts
